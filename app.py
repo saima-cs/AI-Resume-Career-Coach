@@ -1,3 +1,4 @@
+%%writefile app.py
 
 import re
 from io import BytesIO
@@ -20,58 +21,300 @@ st.set_page_config(
 
 
 # ============================================================
-# CUSTOM CSS
+# CUSTOM CSS — TEAL + EMERALD AI THEME
 # ============================================================
 
 st.markdown(
     """
     <style>
 
-    .hero {
-        padding: 2rem;
-        border-radius: 20px;
+    /* ---------- GLOBAL ---------- */
+
+    .stApp {
+        background:
+            radial-gradient(
+                circle at top right,
+                rgba(20, 184, 166, 0.10),
+                transparent 35%
+            ),
+            linear-gradient(
+                135deg,
+                #f0fdfa 0%,
+                #ecfdf5 45%,
+                #f8fafc 100%
+            );
+    }
+
+    .main .block-container {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        max-width: 1400px;
+    }
+
+
+    /* ---------- SIDEBAR ---------- */
+
+    section[data-testid="stSidebar"] {
         background: linear-gradient(
-            135deg,
-            #111827,
-            #1e3a8a,
-            #312e81
+            180deg,
+            #022c22 0%,
+            #064e3b 55%,
+            #115e59 100%
         );
+    }
+
+    section[data-testid="stSidebar"] * {
+        color: white !important;
+    }
+
+    section[data-testid="stSidebar"] hr {
+        border-color: rgba(255,255,255,0.20);
+    }
+
+
+    /* ---------- HERO ---------- */
+
+    .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 3rem;
+        border-radius: 28px;
+        background:
+            radial-gradient(
+                circle at 85% 20%,
+                rgba(45, 212, 191, 0.35),
+                transparent 25%
+            ),
+            linear-gradient(
+                135deg,
+                #022c22,
+                #065f46,
+                #0f766e,
+                #0891b2
+            );
         color: white;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
+        box-shadow:
+            0 20px 50px rgba(6, 78, 59, 0.25);
     }
 
     .hero h1 {
-        font-size: 3rem;
-        margin-bottom: 10px;
+        font-size: 3.2rem;
+        line-height: 1.1;
+        font-weight: 800;
+        margin: 0 0 15px 0;
     }
 
     .hero p {
-        font-size: 1.15rem;
+        font-size: 1.2rem;
+        line-height: 1.7;
+        margin: 0;
+        max-width: 850px;
+        opacity: 0.95;
     }
+
+    .hero-badge {
+        display: inline-block;
+        padding: 7px 14px;
+        margin-bottom: 18px;
+        border-radius: 50px;
+        background: rgba(255,255,255,0.14);
+        border: 1px solid rgba(255,255,255,0.25);
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+
+    /* ---------- SECTION HEADERS ---------- */
+
+    .section-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #064e3b;
+        margin-top: 10px;
+        margin-bottom: 6px;
+    }
+
+    .section-subtitle {
+        color: #64748b;
+        margin-bottom: 25px;
+    }
+
+
+    /* ---------- FEATURE CARDS ---------- */
 
     .feature-card {
+        padding: 1.5rem;
+        min-height: 190px;
+        border-radius: 22px;
+        border: 1px solid #ccfbf1;
+        background: rgba(255,255,255,0.90);
+        box-shadow:
+            0 10px 30px rgba(15,118,110,0.08);
+        transition: all 0.25s ease;
+        margin-bottom: 18px;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow:
+            0 16px 35px rgba(15,118,110,0.15);
+        border-color: #5eead4;
+    }
+
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .feature-card h3 {
+        color: #0f766e;
+        margin-bottom: 8px;
+    }
+
+    .feature-card p {
+        color: #475569;
+        line-height: 1.6;
+    }
+
+
+    /* ---------- STAT CARDS ---------- */
+
+    .stat-card {
         padding: 1.3rem;
-        border-radius: 15px;
-        border: 1px solid #e5e7eb;
+        border-radius: 20px;
         background: white;
-        min-height: 160px;
+        border: 1px solid #ccfbf1;
+        box-shadow:
+            0 8px 25px rgba(15,118,110,0.08);
+        text-align: center;
         margin-bottom: 15px;
     }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #0f766e;
+    }
+
+    .stat-label {
+        color: #64748b;
+        font-size: 0.9rem;
+    }
+
+
+    /* ---------- PROJECT CARDS ---------- */
 
     .project-card {
-        padding: 1.2rem;
-        border-radius: 15px;
-        border: 1px solid #e5e7eb;
+        padding: 1.5rem;
+        border-radius: 22px;
+        border: 1px solid #d1fae5;
         background: white;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        box-shadow:
+            0 8px 25px rgba(16,185,129,0.08);
     }
 
+
+    /* ---------- ROADMAP CARDS ---------- */
+
     .roadmap-card {
-        padding: 1.2rem;
-        border-radius: 15px;
-        border-left: 5px solid #4f46e5;
+        padding: 1.5rem;
+        border-radius: 20px;
+        border-left: 6px solid #0f766e;
         background: white;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        box-shadow:
+            0 8px 25px rgba(15,118,110,0.08);
+    }
+
+
+    /* ---------- INFO BOX ---------- */
+
+    .info-card {
+        padding: 1.4rem;
+        border-radius: 20px;
+        background: linear-gradient(
+            135deg,
+            #ecfdf5,
+            #f0fdfa
+        );
+        border: 1px solid #99f6e4;
+        margin-bottom: 20px;
+    }
+
+
+    /* ---------- BUTTONS ---------- */
+
+    .stButton > button {
+        border-radius: 12px !important;
+        font-weight: 700 !important;
+        min-height: 45px;
+        transition: all 0.2s ease !important;
+    }
+
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow:
+            0 8px 20px rgba(15,118,110,0.18);
+    }
+
+
+    /* ---------- METRICS ---------- */
+
+    [data-testid="stMetric"] {
+        background: white;
+        padding: 1.25rem;
+        border-radius: 20px;
+        border: 1px solid #ccfbf1;
+        box-shadow:
+            0 7px 22px rgba(15,118,110,0.08);
+    }
+
+
+    /* ---------- FILE UPLOADER ---------- */
+
+    [data-testid="stFileUploader"] {
+        background: white;
+        border: 2px dashed #14b8a6;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow:
+            0 8px 25px rgba(20,184,166,0.08);
+    }
+
+
+    /* ---------- INPUTS ---------- */
+
+    div[data-baseweb="input"] > div,
+    div[data-baseweb="select"] > div,
+    textarea {
+        border-radius: 12px !important;
+    }
+
+
+    /* ---------- TABS ---------- */
+
+    button[data-baseweb="tab"] {
+        font-weight: 600;
+    }
+
+
+    /* ---------- PROGRESS ---------- */
+
+    [data-testid="stProgressBar"] {
+        margin-top: 8px;
+        margin-bottom: 12px;
+    }
+
+
+    /* ---------- FOOTER ---------- */
+
+    .footer {
+        text-align: center;
+        padding: 25px;
+        color: #64748b;
+        font-size: 0.9rem;
     }
 
     </style>
@@ -96,11 +339,10 @@ defaults = {
     "projects_result": "",
     "interview_questions": "",
     "interview_feedback": "",
-    "target_role": "",
+    "target_role": "AI Engineer",
 }
 
 for key, value in defaults.items():
-
     if key not in st.session_state:
         st.session_state[key] = value
 
@@ -116,16 +358,14 @@ MODEL_NAME = "llama-3.3-70b-versatile"
 def get_groq_client():
 
     try:
-
         api_key = st.secrets["GROQ_API_KEY"]
 
-        if not api_key:
+        if not api_key or not api_key.strip():
             return None
 
         return Groq(api_key=api_key)
 
     except Exception:
-
         return None
 
 
@@ -134,46 +374,44 @@ def ask_groq(prompt, max_tokens=3500):
     client = get_groq_client()
 
     if client is None:
-
-        st.warning(
-            "Groq API key is not configured. "
-            "Please add GROQ_API_KEY in Streamlit Cloud Secrets."
+        st.error(
+            "🔐 Groq API key is not available. "
+            "Please add GROQ_API_KEY to Streamlit Secrets."
         )
-
         return None
 
     system_prompt = """
-    You are an expert AI Resume and Career Coach.
+You are an expert AI Resume and Career Coach.
 
-    Your responsibilities include:
+Your responsibilities include:
 
-    - Resume analysis
-    - ATS optimization
-    - Career planning
-    - Skill gap analysis
-    - Portfolio recommendations
-    - Interview preparation
+- Resume analysis
+- ATS optimization
+- Career planning
+- Skill gap analysis
+- Portfolio recommendations
+- Interview preparation
 
-    IMPORTANT RULES:
+IMPORTANT RULES:
 
-    1. Never invent qualifications.
-    2. Never invent degrees.
-    3. Never invent jobs.
-    4. Never invent internships.
-    5. Never invent certifications.
-    6. Never invent achievements.
-    7. Clearly distinguish existing skills from recommended skills.
-    8. Do not encourage lying during interviews.
-    9. Give practical advice.
-    10. Use professional formatting.
-    """
+1. Never invent qualifications.
+2. Never invent degrees.
+3. Never invent jobs.
+4. Never invent internships.
+5. Never invent certifications.
+6. Never invent achievements.
+7. Clearly distinguish existing skills from recommended skills.
+8. Never encourage lying during interviews.
+9. Give practical advice.
+10. Use professional formatting.
+11. Be realistic for a Computer Science student.
+12. Prioritize actionable recommendations.
+"""
 
     try:
 
         response = client.chat.completions.create(
-
             model=MODEL_NAME,
-
             messages=[
                 {
                     "role": "system",
@@ -184,7 +422,6 @@ def ask_groq(prompt, max_tokens=3500):
                     "content": prompt,
                 },
             ],
-
             temperature=0.3,
             max_tokens=max_tokens,
         )
@@ -193,10 +430,32 @@ def ask_groq(prompt, max_tokens=3500):
 
     except Exception as error:
 
+        error_text = str(error)
+
         st.error(
-            "The AI request could not be completed. "
-            "Please check your Groq API configuration."
+            "⚠️ The Groq AI request failed."
         )
+
+        if "401" in error_text or "authentication" in error_text.lower():
+            st.warning(
+                "🔑 Your Groq API key may be invalid or expired."
+            )
+
+        elif "429" in error_text:
+            st.warning(
+                "⏳ Groq rate limit or usage limit reached. "
+                "Please wait and try again."
+            )
+
+        elif "model" in error_text.lower():
+            st.warning(
+                "🤖 There may be an issue with the selected Groq model."
+            )
+
+        else:
+            st.warning(
+                "Please check your Streamlit Secrets and Groq configuration."
+            )
 
         return None
 
@@ -212,13 +471,11 @@ def extract_resume_text(uploaded_file):
         file_bytes = uploaded_file.getvalue()
 
         if not file_bytes:
-
             return None, "The uploaded PDF is empty."
 
         max_size = 10 * 1024 * 1024
 
         if len(file_bytes) > max_size:
-
             return None, (
                 "The PDF is larger than 10 MB. "
                 "Please upload a smaller resume."
@@ -227,7 +484,6 @@ def extract_resume_text(uploaded_file):
         reader = PdfReader(BytesIO(file_bytes))
 
         if len(reader.pages) == 0:
-
             return None, "The PDF does not contain any pages."
 
         max_pages = 25
@@ -239,26 +495,21 @@ def extract_resume_text(uploaded_file):
         for page in pages:
 
             try:
-
                 text = page.extract_text() or ""
-
                 extracted_text.append(text)
 
             except Exception:
-
                 extracted_text.append("")
 
         text = "\n".join(extracted_text).strip()
 
         if not text:
-
             return None, (
                 "No readable text was found. "
-                "This may be a scanned/image-only PDF."
+                "This may be a scanned or image-only PDF."
             )
 
         if len(text) < 50:
-
             return None, (
                 "Very little text was extracted. "
                 "Please upload a text-based PDF resume."
@@ -267,7 +518,6 @@ def extract_resume_text(uploaded_file):
         return text[:30000], None
 
     except Exception:
-
         return None, (
             "The PDF could not be processed. "
             "Please check that it is a valid PDF."
@@ -285,12 +535,16 @@ def extract_score(text, labels):
 
     for label in labels:
 
-        pattern = rf"{re.escape(label)}\s*[:\-]?\s*(\d{{1,3}})"
+        pattern = (
+            rf"{re.escape(label)}"
+            rf"\s*[:\-]?\s*"
+            rf"(\d{{1,3}})"
+        )
 
         match = re.search(
             pattern,
             text,
-            re.IGNORECASE
+            re.IGNORECASE,
         )
 
         if match:
@@ -308,19 +562,27 @@ def extract_score(text, labels):
 
 with st.sidebar:
 
-    st.title("🤖 AI Career Coach")
-
-    st.write(
+    st.markdown(
         """
-        Analyze → Improve → Learn → Build → Prepare
-        """
+        <div style="
+            text-align:center;
+            padding:10px 0 20px 0;
+        ">
+            <div style="font-size:3rem;">🤖</div>
+            <h2 style="margin:0;">AI Career Coach</h2>
+            <p style="opacity:0.8;">
+                Your AI-powered career companion
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
     st.divider()
 
     if st.session_state.resume_text:
 
-        st.success("Resume loaded")
+        st.success("✅ Resume Loaded")
 
         word_count = len(
             st.session_state.resume_text.split()
@@ -328,23 +590,21 @@ with st.sidebar:
 
         st.metric(
             "Resume Words",
-            word_count
+            word_count,
         )
 
     else:
 
         st.info(
-            "Upload a resume to begin."
+            "📄 Upload a resume to begin."
         )
 
     st.divider()
 
-    st.subheader("Target Career")
+    st.subheader("🎯 Target Career")
 
     role = st.selectbox(
-
-        "Choose a target role",
-
+        "Choose your target role",
         [
             "AI Engineer",
             "Machine Learning Engineer",
@@ -355,41 +615,64 @@ with st.sidebar:
             "Data Analyst",
             "Other",
         ],
+        index=0,
     )
 
     if role != "Other":
-
         st.session_state.target_role = role
+
+    if role == "Other":
+
+        custom_role = st.text_input(
+            "Enter your target role",
+            value=st.session_state.target_role,
+        )
+
+        if custom_role.strip():
+            st.session_state.target_role = custom_role
 
     st.divider()
 
-    st.caption(
-        "Uploaded resumes are processed temporarily "
-        "and are not permanently stored by this application."
+    st.markdown(
+        """
+        <div style="
+            padding:12px;
+            border-radius:12px;
+            background:rgba(255,255,255,0.08);
+            font-size:0.85rem;
+        ">
+        🔒 Your uploaded resume is processed temporarily
+        and is not permanently stored by this application.
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
 
 # ============================================================
-# HERO SECTION
+# HERO
 # ============================================================
 
 st.markdown(
-
     """
     <div class="hero">
 
+        <div class="hero-badge">
+            ✨ AI-POWERED CAREER INTELLIGENCE
+        </div>
+
         <h1>
-        AI Resume & Career Coach 🤖📄💼
+            AI Resume & Career Coach 🤖
         </h1>
 
         <p>
-        Analyze your resume. Discover your skill gaps.
-        Build your career roadmap.
+            Analyze your resume, improve your professional profile,
+            discover your skill gaps, build a personalized roadmap,
+            create stronger portfolio projects, and prepare for interviews.
         </p>
 
     </div>
     """,
-
     unsafe_allow_html=True,
 )
 
@@ -399,12 +682,11 @@ st.markdown(
 # ============================================================
 
 tabs = st.tabs(
-
     [
         "🏠 Home",
         "📄 Resume",
         "🤖 AI Analysis",
-        "✍️ Resume Improver",
+        "✍️ Improver",
         "💼 Career Match",
         "🧠 Skill Gap",
         "📚 Roadmap",
@@ -421,18 +703,19 @@ tabs = st.tabs(
 
 with tabs[0]:
 
-    st.header(
-        "Welcome to AI Resume & Career Coach"
+    st.markdown(
+        '<div class="section-title">Welcome to your AI Career Hub 👋</div>',
+        unsafe_allow_html=True,
     )
 
-    st.write(
+    st.markdown(
         """
-        AI Resume & Career Coach is an AI-powered career
-        assistant designed to help students and early-career
-        professionals analyze their resumes, discover skill
-        gaps, improve resume content and prepare for their
-        target careers.
-        """
+        <div class="section-subtitle">
+        One workspace to analyze, improve, learn, build and prepare
+        for your future career.
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
     col1, col2, col3 = st.columns(3)
@@ -442,14 +725,12 @@ with tabs[0]:
         st.markdown(
             """
             <div class="feature-card">
-
-            <h3>📄 Resume Intelligence</h3>
-
-            <p>
-            Analyze resume quality, ATS compatibility,
-            missing sections and keywords.
-            </p>
-
+                <div class="feature-icon">📄</div>
+                <h3>Resume Intelligence</h3>
+                <p>
+                Analyze resume quality, ATS compatibility,
+                missing sections, keywords and content issues.
+                </p>
             </div>
             """,
             unsafe_allow_html=True,
@@ -460,14 +741,12 @@ with tabs[0]:
         st.markdown(
             """
             <div class="feature-card">
-
-            <h3>🧠 Skill Gap Analysis</h3>
-
-            <p>
-            Identify technical and soft skills
-            required for your target career.
-            </p>
-
+                <div class="feature-icon">🧠</div>
+                <h3>Skill Gap Analysis</h3>
+                <p>
+                Discover the technical and professional skills
+                needed for your target career.
+                </p>
             </div>
             """,
             unsafe_allow_html=True,
@@ -478,35 +757,87 @@ with tabs[0]:
         st.markdown(
             """
             <div class="feature-card">
-
-            <h3>🚀 Career Roadmap</h3>
-
-            <p>
-            Build a personalized learning roadmap
-            based on your existing skills.
-            </p>
-
+                <div class="feature-icon">🚀</div>
+                <h3>Career Roadmap</h3>
+                <p>
+                Get a personalized learning and portfolio roadmap
+                based on your current profile.
+                </p>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    st.divider()
+    col4, col5, col6 = st.columns(3)
 
-    st.subheader(
-        "Start Career Analysis 🚀"
-    )
+    with col4:
 
-    if not st.session_state.resume_text:
-
-        st.info(
-            "Go to the 📄 Resume tab and upload your PDF resume."
+        st.markdown(
+            """
+            <div class="feature-card">
+                <div class="feature-icon">💼</div>
+                <h3>Career Match</h3>
+                <p>
+                Compare your current profile with your desired
+                job role and identify missing skills.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
-    else:
+    with col5:
 
+        st.markdown(
+            """
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Portfolio Builder</h3>
+                <p>
+                Discover realistic AI and software projects
+                that can strengthen your GitHub portfolio.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col6:
+
+        st.markdown(
+            """
+            <div class="feature-card">
+                <div class="feature-icon">🎤</div>
+                <h3>Interview Coach</h3>
+                <p>
+                Practice technical, HR, behavioral and
+                project-based interview questions.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.markdown(
+        """
+        <div class="info-card">
+            <h3>🚀 Start Your Career Analysis</h3>
+            <p>
+            Upload your PDF resume from the Resume page,
+            select your target career and start your personalized analysis.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    if st.session_state.resume_text:
         st.success(
-            "Your resume is ready for analysis."
+            "✅ Your resume is ready. Go to AI Analysis to begin."
+        )
+    else:
+        st.info(
+            "📄 Start by uploading your resume from the Resume tab."
         )
 
 
@@ -516,32 +847,25 @@ with tabs[0]:
 
 with tabs[1]:
 
-    st.header(
-        "📄 Resume Upload"
+    st.markdown(
+        '<div class="section-title">📄 Resume Center</div>',
+        unsafe_allow_html=True,
     )
 
-    st.write(
-        """
-        Upload your resume as a PDF.
-        The application will extract the text
-        for AI analysis.
-        """
+    st.markdown(
+        '<div class="section-subtitle">Upload your PDF resume and let AI extract the information.</div>',
+        unsafe_allow_html=True,
     )
 
     uploaded_file = st.file_uploader(
-
-        "Upload Resume PDF",
-
+        "📤 Upload Resume PDF",
         type=["pdf"],
-
         help="Maximum recommended size: 10 MB.",
     )
 
     if uploaded_file:
 
-        with st.spinner(
-            "Extracting resume text..."
-        ):
+        with st.spinner("🔍 Extracting resume information..."):
 
             resume_text, error = extract_resume_text(
                 uploaded_file
@@ -556,49 +880,51 @@ with tabs[1]:
             st.session_state.resume_text = resume_text
 
             st.success(
-                "Resume extracted successfully! ✅"
+                "🎉 Resume extracted successfully!"
             )
 
-            col1, col2 = st.columns(2)
+            col1, col2, col3 = st.columns(3)
 
             with col1:
-
                 st.metric(
-                    "Words",
-                    len(resume_text.split())
+                    "📝 Words",
+                    len(resume_text.split()),
                 )
 
             with col2:
-
                 st.metric(
-                    "Characters",
-                    len(resume_text)
+                    "🔤 Characters",
+                    len(resume_text),
                 )
 
-            st.subheader(
-                "Resume Preview"
-            )
+            with col3:
+                st.metric(
+                    "📄 Pages",
+                    min(len(PdfReader(
+                        BytesIO(uploaded_file.getvalue())
+                    ).pages), 25),
+                )
+
+            st.divider()
+
+            st.subheader("👀 Resume Preview")
 
             st.text_area(
-
                 "Extracted Resume Text",
-
-                resume_text[:3000],
-
-                height=300,
-
+                resume_text[:5000],
+                height=350,
                 disabled=True,
             )
 
-            if len(resume_text) > 3000:
+            if len(resume_text) > 5000:
 
                 st.caption(
-                    "Preview limited to the first 3,000 characters."
+                    "Preview limited to the first 5,000 characters."
                 )
 
             st.info(
-                "The application does not permanently save "
-                "your uploaded resume."
+                "🔒 Your resume is processed temporarily "
+                "and is not permanently stored by this application."
             )
 
 
@@ -608,89 +934,81 @@ with tabs[1]:
 
 with tabs[2]:
 
-    st.header(
-        "🤖 AI Resume Analysis"
+    st.markdown(
+        '<div class="section-title">🤖 AI Resume Analysis</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="section-subtitle">Get an AI-powered review of your resume.</div>',
+        unsafe_allow_html=True,
     )
 
     if not st.session_state.resume_text:
 
         st.warning(
-            "Please upload a resume first."
+            "📄 Please upload a resume first."
         )
 
     else:
 
-        st.write(
-            "Analyze your resume using AI."
-        )
-
         if st.button(
-            "Run Complete Resume Analysis",
+            "🚀 Run Complete Resume Analysis",
             type="primary",
+            use_container_width=True,
         ):
 
             prompt = f"""
+Analyze the following resume as a professional ATS resume reviewer.
 
-            Analyze the following resume as a professional
-            ATS resume reviewer.
+RESUME:
+{st.session_state.resume_text[:30000]}
 
-            RESUME:
+Provide these sections:
 
-            {st.session_state.resume_text[:30000]}
+# Overall Resume Score
+Overall Resume Score: [0-100]
 
-            Provide the following sections:
+# ATS Friendliness
+ATS Score: [0-100]
 
-            # Overall Resume Score
+# Strengths
+Identify the strongest aspects of the resume.
 
-            Overall Resume Score: [0-100]
+# Weaknesses
+Identify important weaknesses.
 
-            # ATS Friendliness
+# Missing Sections
+Identify important missing resume sections.
 
-            ATS Score: [0-100]
+# Formatting and Content Issues
+Identify ATS and professional writing problems.
 
-            # Strengths
+# Missing Keywords
+Recommend useful keywords for the target career.
 
-            Identify the strongest aspects.
+# Recommended Skills
+Clearly separate:
+- Current skills demonstrated by the resume
+- Recommended skills to learn
 
-            # Weaknesses
+# Professional Summary Improvement
+Explain how the professional summary can be improved.
 
-            Identify important weaknesses.
+# Priority Improvements
+Give the top 5 improvements in priority order.
 
-            # Missing Sections
-
-            Identify missing resume sections.
-
-            # Formatting and Content Issues
-
-            Identify ATS and professional writing problems.
-
-            # Missing Keywords
-
-            Recommend useful keywords.
-
-            # Recommended Skills
-
-            Separate current skills from recommended skills.
-
-            # Professional Summary Improvement
-
-            Explain how the professional summary can be improved.
-
-            # Priority Improvements
-
-            Give the top 5 improvements.
-
-            Do not invent qualifications or experience.
-
-            """
+Never invent qualifications, experience, education, certifications,
+projects or achievements.
+"""
 
             with st.spinner(
-                "AI is analyzing your resume..."
+                "🧠 AI is analyzing your resume..."
             ):
 
                 result = ask_groq(
                     prompt,
-                    max_tokens=4500
+                    max_tokens=4500,
                 )
 
             if result:
@@ -698,9 +1016,7 @@ with tabs[2]:
                 st.session_state.analysis = result
 
                 st.session_state.resume_score = extract_score(
-
                     result,
-
                     [
                         "Overall Resume Score",
                         "Resume Score",
@@ -708,9 +1024,7 @@ with tabs[2]:
                 )
 
                 st.session_state.ats_score = extract_score(
-
                     result,
-
                     [
                         "ATS Score",
                         "ATS Friendliness",
@@ -719,13 +1033,15 @@ with tabs[2]:
 
         if st.session_state.analysis:
 
+            st.divider()
+
             col1, col2 = st.columns(2)
 
             with col1:
 
                 st.metric(
-                    "Resume Score",
-                    f"{st.session_state.resume_score}/100"
+                    "📄 Resume Score",
+                    f"{st.session_state.resume_score}/100",
                 )
 
                 st.progress(
@@ -735,8 +1051,8 @@ with tabs[2]:
             with col2:
 
                 st.metric(
-                    "ATS Score",
-                    f"{st.session_state.ats_score}/100"
+                    "🎯 ATS Score",
+                    f"{st.session_state.ats_score}/100",
                 )
 
                 st.progress(
@@ -756,22 +1072,26 @@ with tabs[2]:
 
 with tabs[3]:
 
-    st.header(
-        "✍️ AI Resume Improver"
+    st.markdown(
+        '<div class="section-title">✍️ AI Resume Improver</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="section-subtitle">Transform your existing content into clearer, ATS-friendly resume language.</div>',
+        unsafe_allow_html=True,
     )
 
     if not st.session_state.resume_text:
 
         st.warning(
-            "Please upload a resume first."
+            "📄 Please upload a resume first."
         )
 
     else:
 
         section = st.selectbox(
-
             "Choose a resume section",
-
             [
                 "Professional Summary",
                 "Career Objective",
@@ -783,27 +1103,18 @@ with tabs[3]:
         )
 
         original = st.text_area(
-
-            "Paste your original section",
-
-            height=180,
-
-            placeholder=(
-                "Paste your current resume section here..."
-            ),
+            "📝 Original Section",
+            height=200,
+            placeholder="Paste your current resume section here...",
         )
 
         target_role = st.text_input(
-
-            "Target role",
-
+            "🎯 Target Role",
             value=st.session_state.target_role,
-
-            placeholder="Example: AI Engineer",
         )
 
         if st.button(
-            "Improve This Section",
+            "✨ Improve This Section",
             type="primary",
         ):
 
@@ -816,42 +1127,40 @@ with tabs[3]:
             else:
 
                 prompt = f"""
+Improve this resume section.
 
-                Improve this resume section.
+SECTION:
+{section}
 
-                SECTION:
-                {section}
+TARGET ROLE:
+{target_role}
 
-                TARGET ROLE:
-                {target_role}
+ORIGINAL:
+{original}
 
-                ORIGINAL:
+Requirements:
 
-                {original}
-
-                Requirements:
-
-                - Make it professional.
-                - Make it ATS-friendly.
-                - Improve clarity.
-                - Keep it concise.
-                - Preserve factual information.
-                - Do not invent jobs.
-                - Do not invent degrees.
-                - Do not invent certifications.
-                - Do not invent achievements.
-                - Do not invent technologies.
-                - Return only the improved version.
-
-                """
+- Make it professional.
+- Make it ATS-friendly.
+- Improve clarity.
+- Keep it concise.
+- Preserve factual information.
+- Do not invent jobs.
+- Do not invent degrees.
+- Do not invent certifications.
+- Do not invent achievements.
+- Do not invent technologies.
+- Do not add unsupported claims.
+- Return only the improved version.
+"""
 
                 with st.spinner(
-                    "Improving your resume..."
+                    "✍️ Improving your resume..."
                 ):
 
                     improved = ask_groq(
                         prompt,
-                        max_tokens=1800
+                        max_tokens=1800,
                     )
 
                 if improved:
@@ -861,26 +1170,26 @@ with tabs[3]:
                     with col1:
 
                         st.subheader(
-                            "Original Version"
+                            "📌 Original"
                         )
 
                         st.text_area(
-                            "Original",
+                            "Original Version",
                             original,
-                            height=280,
+                            height=300,
                             disabled=True,
                         )
 
                     with col2:
 
                         st.subheader(
-                            "Improved Version"
+                            "✨ AI Improved"
                         )
 
                         st.text_area(
-                            "AI Improved",
+                            "Improved Version",
                             improved,
-                            height=280,
+                            height=300,
                         )
 
 
@@ -890,32 +1199,36 @@ with tabs[3]:
 
 with tabs[4]:
 
-    st.header(
-        "💼 Career Match"
+    st.markdown(
+        '<div class="section-title">💼 Career Match</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="section-subtitle">Discover how closely your current profile matches your target career.</div>',
+        unsafe_allow_html=True,
     )
 
     if not st.session_state.resume_text:
 
         st.warning(
-            "Please upload a resume first."
+            "📄 Please upload a resume first."
         )
 
     else:
 
         target_role = st.text_input(
-
-            "Target job role",
-
+            "🎯 Target Job Role",
             value=st.session_state.target_role,
-
             placeholder="Example: Generative AI Engineer",
         )
 
         st.session_state.target_role = target_role
 
         if st.button(
-            "Analyze Career Match",
+            "🎯 Analyze Career Match",
             type="primary",
+            use_container_width=True,
         ):
 
             if not target_role.strip():
@@ -927,58 +1240,48 @@ with tabs[4]:
             else:
 
                 prompt = f"""
+Compare this resume against the target career.
 
-                Compare this resume against the target career.
+TARGET ROLE:
+{target_role}
 
-                TARGET ROLE:
-                {target_role}
+RESUME:
+{st.session_state.resume_text[:30000]}
 
-                RESUME:
+Provide:
 
-                {st.session_state.resume_text[:30000]}
+# Job Match
+Job Match Percentage: [0-100]
 
-                Provide:
+# Matching Skills
+List skills demonstrated in the resume.
 
-                # Job Match
+# Missing Skills
+List important missing skills.
 
-                Job Match Percentage: [0-100]
+# Recommended Technologies
+Recommend technologies to learn.
 
-                # Matching Skills
+# Recommended Projects
+Recommend relevant portfolio projects.
 
-                List skills demonstrated in the resume.
+# Recommended Certifications
+Recommend useful certification categories.
 
-                # Missing Skills
+# Skills Priority
+Create a priority list.
 
-                List important missing skills.
-
-                # Recommended Technologies
-
-                Recommend technologies to learn.
-
-                # Recommended Projects
-
-                Recommend relevant portfolio projects.
-
-                # Recommended Certifications
-
-                Recommend useful certification categories.
-
-                # Skills Priority
-
-                Create a priority list.
-
-                Never claim that the user already has
-                a skill unless the resume provides evidence.
-
-                """
+Never claim that the user already has a skill
+unless the resume provides evidence.
+"""
 
                 with st.spinner(
-                    "Calculating career match..."
+                    "🔍 Calculating career match..."
                 ):
 
                     result = ask_groq(
                         prompt,
-                        max_tokens=4000
+                        max_tokens=4000,
                     )
 
                 if result:
@@ -986,9 +1289,7 @@ with tabs[4]:
                     st.session_state.career_match_result = result
 
                     st.session_state.career_match = extract_score(
-
                         result,
-
                         [
                             "Job Match Percentage",
                             "Job Match",
@@ -998,9 +1299,11 @@ with tabs[4]:
 
         if st.session_state.career_match_result:
 
+            st.divider()
+
             st.metric(
-                "Career Match",
-                f"{st.session_state.career_match}/100"
+                "🎯 Career Match",
+                f"{st.session_state.career_match}/100",
             )
 
             st.progress(
@@ -1015,98 +1318,92 @@ with tabs[4]:
 
 
 # ============================================================
-# SKILL GAP ANALYZER
+# SKILL GAP
 # ============================================================
 
 with tabs[5]:
 
-    st.header(
-        "🧠 Skill Gap Analyzer"
+    st.markdown(
+        '<div class="section-title">🧠 Skill Gap Analyzer</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="section-subtitle">Understand what you know, what you need and what to learn next.</div>',
+        unsafe_allow_html=True,
     )
 
     if not st.session_state.resume_text:
 
         st.warning(
-            "Please upload a resume first."
+            "📄 Please upload a resume first."
         )
 
     else:
 
         role = st.text_input(
-
-            "Career target",
-
+            "🎯 Career Target",
             value=st.session_state.target_role,
-
             placeholder="Example: Machine Learning Engineer",
             key="skill_gap_role",
         )
 
         if st.button(
-            "Analyze Skill Gap",
+            "🧠 Analyze Skill Gap",
             type="primary",
+            use_container_width=True,
         ):
 
             if not role.strip():
 
                 st.warning(
-                    "Enter a target career first."
+                    "Enter a career target first."
                 )
 
             else:
 
                 prompt = f"""
+Analyze the skill gap between this resume and the target career.
 
-                Analyze the skill gap between this resume
-                and the target career.
+TARGET CAREER:
+{role}
 
-                TARGET CAREER:
-                {role}
+RESUME:
+{st.session_state.resume_text[:30000]}
 
-                RESUME:
-                {st.session_state.resume_text[:30000]}
+Create:
 
-                Create:
+# Current Skills
+Skills already demonstrated.
 
-                # Current Skills
+# Missing Technical Skills
+Important technical skills missing.
 
-                Skills already demonstrated.
+# Missing Soft Skills
+Important professional skills missing.
 
-                # Missing Technical Skills
+# Beginner Skills
+Skills to learn at beginner level.
 
-                Important technical skills missing.
+# Intermediate Skills
+Skills to learn at intermediate level.
 
-                # Missing Soft Skills
+# Advanced Skills
+Advanced skills to learn later.
 
-                Important professional skills.
+# Skill Priority
+Rank skills by importance.
 
-                # Beginner Skills
-
-                Skills to learn at beginner level.
-
-                # Intermediate Skills
-
-                Skills to learn at intermediate level.
-
-                # Advanced Skills
-
-                Advanced skills to learn later.
-
-                # Skill Priority
-
-                Rank skills by importance.
-
-                Do not claim that missing skills already exist.
-
-                """
+Do not claim that missing skills already exist.
+"""
 
                 with st.spinner(
-                    "Analyzing your skill gap..."
+                    "🧠 Analyzing your skill gap..."
                 ):
 
                     result = ask_groq(
                         prompt,
-                        max_tokens=4000
+                        max_tokens=4000,
                     )
 
                 if result:
@@ -1114,6 +1411,8 @@ with tabs[5]:
                     st.session_state.skill_gap_result = result
 
         if st.session_state.skill_gap_result:
+
+            st.divider()
 
             st.markdown(
                 st.session_state.skill_gap_result
@@ -1126,31 +1425,32 @@ with tabs[5]:
 
 with tabs[6]:
 
-    st.header(
-        "📚 Personalized Career Roadmap"
+    st.markdown(
+        '<div class="section-title">📚 Personalized Career Roadmap</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="section-subtitle">Build a structured learning and portfolio plan around your target career.</div>',
+        unsafe_allow_html=True,
     )
 
     if not st.session_state.resume_text:
 
         st.warning(
-            "Please upload a resume first."
+            "📄 Please upload a resume first."
         )
 
     else:
 
         role = st.text_input(
-
-            "Target career for roadmap",
-
+            "🎯 Target Career",
             value=st.session_state.target_role,
-
             key="roadmap_role",
         )
 
         duration = st.selectbox(
-
-            "Roadmap duration",
-
+            "⏱️ Roadmap Duration",
             [
                 "3 Months",
                 "6 Months",
@@ -1160,66 +1460,46 @@ with tabs[6]:
         )
 
         if st.button(
-            "Generate Career Roadmap",
+            "🚀 Generate Career Roadmap",
             type="primary",
+            use_container_width=True,
         ):
 
             prompt = f"""
+Create a personalized career roadmap.
 
-            Create a personalized career roadmap.
+TARGET CAREER:
+{role}
 
-            TARGET CAREER:
-            {role}
+DURATION:
+{duration}
 
-            DURATION:
-            {duration}
+RESUME:
+{st.session_state.resume_text[:30000]}
 
-            RESUME:
+Existing skills must be considered.
 
-            {st.session_state.resume_text[:30000]}
+For every month provide:
 
-            Existing skills must be considered.
+- Main learning goals
+- Technical skills
+- Tools
+- Practice tasks
+- Portfolio milestone
+- Suggested outcome
 
-            Create a structured roadmap.
+Customize everything according to the resume.
 
-            For every month provide:
-
-            - Main learning goals
-            - Technical skills
-            - Tools
-            - Practice tasks
-            - Portfolio milestone
-            - Suggested outcome
-
-            Example:
-
-            Month 1:
-            Python
-            Git/GitHub
-            Basic SQL
-
-            Month 2:
-            Machine Learning
-            Data handling
-
-            Month 3:
-            Generative AI
-            LLM APIs
-            RAG
-
-            Customize everything according to the resume.
-
-            Do not assume skills that are not demonstrated.
-
-            """
+Do not assume skills that are not demonstrated.
+"""
 
             with st.spinner(
-                "Creating your personalized roadmap..."
+                "📚 Creating your personalized roadmap..."
             ):
 
                 result = ask_groq(
                     prompt,
-                    max_tokens=4500
+                    max_tokens=4500,
                 )
 
             if result:
@@ -1227,6 +1507,8 @@ with tabs[6]:
                 st.session_state.roadmap_result = result
 
         if st.session_state.roadmap_result:
+
+            st.divider()
 
             st.markdown(
                 st.session_state.roadmap_result
@@ -1239,82 +1521,78 @@ with tabs[6]:
 
 with tabs[7]:
 
-    st.header(
-        "🚀 Portfolio Project Recommendations"
+    st.markdown(
+        '<div class="section-title">🚀 Portfolio Project Recommendations</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="section-subtitle">Find practical projects that demonstrate career-relevant skills.</div>',
+        unsafe_allow_html=True,
     )
 
     if not st.session_state.resume_text:
 
         st.warning(
-            "Please upload a resume first."
+            "📄 Please upload a resume first."
         )
 
     else:
 
         role = st.text_input(
-
-            "Target career",
-
+            "🎯 Target Career",
             value=st.session_state.target_role,
-
             key="projects_role",
         )
 
         number_of_projects = st.slider(
-
             "Number of project ideas",
-
             min_value=3,
-
             max_value=8,
-
             value=5,
         )
 
         if st.button(
-            "Recommend Projects",
+            "🚀 Recommend Projects",
             type="primary",
+            use_container_width=True,
         ):
 
             prompt = f"""
+Recommend {number_of_projects} strong portfolio projects.
 
-            Recommend {number_of_projects} strong portfolio
-            projects for this career.
+TARGET CAREER:
+{role}
 
-            TARGET CAREER:
-            {role}
+RESUME:
+{st.session_state.resume_text[:30000]}
 
-            RESUME:
+For every project provide:
 
-            {st.session_state.resume_text[:30000]}
+# Project Title
 
-            For every project provide:
+Difficulty
 
-            # Project Title
+Technologies
 
-            Difficulty
+What the project demonstrates
 
-            Technologies
+Why it helps the resume
 
-            What the project demonstrates
+Suggested GitHub portfolio value
 
-            Why it helps the resume
+Make projects realistic for a Computer Science student.
 
-            Suggested GitHub portfolio value
-
-            Make projects realistic for a Computer Science student.
-
-            Avoid generic projects when possible.
-
-            """
+Avoid generic projects when possible.
+"""
 
             with st.spinner(
-                "Generating project recommendations..."
+                "🚀 Generating project recommendations..."
             ):
 
                 result = ask_groq(
                     prompt,
-                    max_tokens=4500
+                    max_tokens=4500,
                 )
 
             if result:
@@ -1322,6 +1600,8 @@ with tabs[7]:
                 st.session_state.projects_result = result
 
         if st.session_state.projects_result:
+
+            st.divider()
 
             st.markdown(
                 st.session_state.projects_result
@@ -1334,38 +1614,38 @@ with tabs[7]:
 
 with tabs[8]:
 
-    st.header(
-        "🎤 Interview Coach"
+    st.markdown(
+        '<div class="section-title">🎤 AI Interview Coach</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="section-subtitle">Practice interviews and receive structured AI feedback.</div>',
+        unsafe_allow_html=True,
     )
 
     if not st.session_state.resume_text:
 
         st.warning(
-            "Please upload a resume first."
+            "📄 Please upload a resume first."
         )
 
     else:
 
         role = st.text_input(
-
-            "Interview role",
-
+            "🎯 Interview Role",
             value=st.session_state.target_role,
-
             key="interview_role",
         )
 
         interview_type = st.multiselect(
-
-            "Question types",
-
+            "Question Types",
             [
                 "Technical",
                 "HR",
                 "Behavioral",
                 "Project-based",
             ],
-
             default=[
                 "Technical",
                 "HR",
@@ -1375,45 +1655,43 @@ with tabs[8]:
         )
 
         if st.button(
-            "Generate Interview Questions",
+            "🎤 Generate Interview Questions",
             type="primary",
+            use_container_width=True,
         ):
 
             prompt = f"""
+Create an interview preparation set.
 
-            Create an interview preparation set.
+TARGET ROLE:
+{role}
 
-            TARGET ROLE:
-            {role}
+RESUME:
+{st.session_state.resume_text[:30000]}
 
-            RESUME:
+QUESTION TYPES:
+{", ".join(interview_type)}
 
-            {st.session_state.resume_text[:30000]}
+Generate:
 
-            QUESTION TYPES:
-            {", ".join(interview_type)}
+- Technical questions
+- HR questions
+- Behavioral questions
+- Project-based questions
 
-            Generate:
+Personalize questions using only information
+that actually appears in the resume.
 
-            - Technical questions
-            - HR questions
-            - Behavioral questions
-            - Project-based questions
-
-            Personalize questions using only information
-            that actually appears in the resume.
-
-            Do not invent projects or experience.
-
-            """
+Do not invent projects or experience.
+"""
 
             with st.spinner(
-                "Preparing interview questions..."
+                "🎤 Preparing interview questions..."
             ):
 
                 result = ask_groq(
                     prompt,
-                    max_tokens=4000
+                    max_tokens=4000,
                 )
 
             if result:
@@ -1422,8 +1700,10 @@ with tabs[8]:
 
         if st.session_state.interview_questions:
 
+            st.divider()
+
             st.subheader(
-                "Interview Questions"
+                "❓ Interview Questions"
             )
 
             st.markdown(
@@ -1433,22 +1713,23 @@ with tabs[8]:
             st.divider()
 
             st.subheader(
-                "Practice Your Answer"
+                "📝 Practice Your Answer"
             )
 
             selected_question = st.text_input(
-                "Question",
-                placeholder="Paste an interview question here..."
+                "Interview Question",
+                placeholder="Paste an interview question here...",
             )
 
             answer = st.text_area(
-                "Your answer",
-                height=200,
-                placeholder="Write your answer honestly..."
+                "Your Answer",
+                height=220,
+                placeholder="Write your answer honestly...",
             )
 
             if st.button(
-                "Get AI Feedback"
+                "✨ Get AI Feedback",
+                type="primary",
             ):
 
                 if not selected_question.strip():
@@ -1466,37 +1747,35 @@ with tabs[8]:
                 else:
 
                     prompt = f"""
+Evaluate this interview answer.
 
-                    Evaluate this interview answer.
+QUESTION:
+{selected_question}
 
-                    QUESTION:
-                    {selected_question}
+ANSWER:
+{answer}
 
-                    ANSWER:
-                    {answer}
+Provide:
 
-                    Provide:
+# Feedback
 
-                    # Feedback
+# Missing Points
 
-                    # Missing Points
+# Better Answer Structure
 
-                    # Better Answer Structure
+# Improvement Suggestions
 
-                    # Improvement Suggestions
-
-                    Do not create false experience
-                    or encourage the candidate to lie.
-
-                    """
+Do not create false experience
+or encourage the candidate to lie.
+"""
 
                     with st.spinner(
-                        "Reviewing your answer..."
+                        "🧠 Reviewing your answer..."
                     ):
 
                         feedback = ask_groq(
                             prompt,
-                            max_tokens=2500
+                            max_tokens=2500,
                         )
 
                     if feedback:
@@ -1505,8 +1784,10 @@ with tabs[8]:
 
             if st.session_state.interview_feedback:
 
+                st.divider()
+
                 st.subheader(
-                    "AI Feedback"
+                    "💡 AI Feedback"
                 )
 
                 st.markdown(
@@ -1520,12 +1801,14 @@ with tabs[8]:
 
 with tabs[9]:
 
-    st.header(
-        "📊 Career Dashboard"
+    st.markdown(
+        '<div class="section-title">📊 Career Dashboard</div>',
+        unsafe_allow_html=True,
     )
 
-    st.write(
-        "Your current career-readiness overview."
+    st.markdown(
+        '<div class="section-subtitle">Track your current career-readiness progress.</div>',
+        unsafe_allow_html=True,
     )
 
     col1, col2, col3 = st.columns(3)
@@ -1533,22 +1816,22 @@ with tabs[9]:
     with col1:
 
         st.metric(
-            "Resume Score",
-            f"{st.session_state.resume_score}/100"
+            "📄 Resume Score",
+            f"{st.session_state.resume_score}/100",
         )
 
     with col2:
 
         st.metric(
-            "ATS Score",
-            f"{st.session_state.ats_score}/100"
+            "🎯 ATS Score",
+            f"{st.session_state.ats_score}/100",
         )
 
     with col3:
 
         st.metric(
-            "Career Match",
-            f"{st.session_state.career_match}/100"
+            "💼 Career Match",
+            f"{st.session_state.career_match}/100",
         )
 
     st.divider()
@@ -1576,7 +1859,7 @@ with tabs[9]:
         readiness = 0
 
     st.subheader(
-        "Career Readiness"
+        "🚀 Career Readiness"
     )
 
     if readiness == 0:
@@ -1590,7 +1873,7 @@ with tabs[9]:
 
         st.metric(
             "Career Readiness Score",
-            f"{readiness}/100"
+            f"{readiness}/100",
         )
 
         st.progress(
@@ -1600,68 +1883,122 @@ with tabs[9]:
         if readiness >= 80:
 
             st.success(
-                "Strong career readiness. Continue building "
-                "projects and preparing for interviews."
+                "🌟 Strong career readiness! "
+                "Continue building projects and preparing for interviews."
             )
 
         elif readiness >= 60:
 
             st.info(
-                "Good foundation. Focus on the identified "
+                "👍 Good foundation. Focus on the identified "
                 "skill gaps and portfolio improvements."
             )
 
         elif readiness >= 40:
 
             st.warning(
-                "Develop your core skills and strengthen "
-                "your resume before applying widely."
+                "📚 Keep developing your core skills and "
+                "strengthen your resume."
             )
 
         else:
 
             st.warning(
-                "Focus on building foundational skills, "
-                "projects and resume quality."
+                "🌱 Focus on foundational skills, projects "
+                "and resume quality."
             )
 
     st.divider()
 
     st.subheader(
-        "Career Summary"
+        "📋 Career Summary"
     )
 
     summary_col1, summary_col2 = st.columns(2)
 
     with summary_col1:
 
-        st.write(
-            f"**Target Career:** "
-            f"{st.session_state.target_role or 'Not selected'}"
-        )
+        st.markdown(
+            f"""
+            **🎯 Target Career**
 
-        st.write(
-            f"**Resume Uploaded:** "
-            f"{'Yes' if st.session_state.resume_text else 'No'}"
+            {st.session_state.target_role or "Not selected"}
+
+            **📄 Resume Uploaded**
+
+            {"✅ Yes" if st.session_state.resume_text else "❌ No"}
+            """
         )
 
     with summary_col2:
 
-        st.write(
-            f"**Resume Analysis:** "
-            f"{'Completed' if st.session_state.analysis else 'Not completed'}"
-        )
+        st.markdown(
+            f"""
+            **🤖 Resume Analysis**
 
-        st.write(
-            f"**Career Match:** "
-            f"{'Completed' if st.session_state.career_match_result else 'Not completed'}"
+            {"✅ Completed" if st.session_state.analysis else "⏳ Not completed"}
+
+            **💼 Career Match**
+
+            {"✅ Completed" if st.session_state.career_match_result else "⏳ Not completed"}
+            """
         )
 
     st.divider()
 
+    st.subheader(
+        "✨ Your Career Journey"
+    )
+
+    journey_col1, journey_col2, journey_col3, journey_col4 = st.columns(4)
+
+    with journey_col1:
+        st.markdown(
+            """
+            <div class="stat-card">
+                <div class="stat-number">01</div>
+                <div class="stat-label">Analyze</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with journey_col2:
+        st.markdown(
+            """
+            <div class="stat-card">
+                <div class="stat-number">02</div>
+                <div class="stat-label">Improve</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with journey_col3:
+        st.markdown(
+            """
+            <div class="stat-card">
+                <div class="stat-number">03</div>
+                <div class="stat-label">Learn & Build</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with journey_col4:
+        st.markdown(
+            """
+            <div class="stat-card">
+                <div class="stat-number">04</div>
+                <div class="stat-label">Prepare</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
     st.caption(
         "AI recommendations are informational and should be reviewed "
-        "by the user before being used in applications."
+        "before being used in applications."
     )
 
 
@@ -1671,7 +2008,15 @@ with tabs[9]:
 
 st.divider()
 
-st.caption(
-    "AI Resume & Career Coach 🤖 | "
-    "Built with Python, Streamlit, Groq API and pypdf"
+st.markdown(
+    """
+    <div class="footer">
+        🤖 <b>AI Resume & Career Coach</b>
+        <br>
+        Built with Python • Streamlit • Groq AI • pypdf
+        <br><br>
+        Analyze • Improve • Learn • Build • Prepare 🚀
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
