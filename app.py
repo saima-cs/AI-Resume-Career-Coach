@@ -1,5 +1,3 @@
-%%writefile app.py
-
 import re
 from io import BytesIO
 
